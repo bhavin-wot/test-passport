@@ -128,6 +128,7 @@ app.get('/auth/microsoft/redirect', async(req,res) => {
     const check = await passport.authenticate('microsoft', { successRedirect: '/dashboard', failureRedirect: '/login' });
     console.log(2);
     console.log(check);
+    return check;
   } catch (error) {
     console.error(error);
     res.status(500);
