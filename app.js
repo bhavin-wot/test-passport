@@ -117,21 +117,22 @@ app.get('/auth/google/callback',
 
 
 // Microsoft Routes
-app.get('/auth/microsoft', async (req,res) => {
-  try {
-    console.log('into API')
-    const check = await passport.authenticate('microsoft', { session : false })
-    console.log(check);
-  } catch (error) {
-    console.log(error);
-    res.status(500);
-  }
-});
+app.get('/auth/microsoft',passport.authenticate('microsoft', { session : false }));
 // app.get('/auth/microsoft/redirect', passport.authenticate('microsoft', { session: false, failureRedirect: `/login` }), (req, res) => {
 //   res.redirect("/dashboard");
 
 // });
-app.get('/auth/microsoft/redirect', passport.authenticate('microsoft', { successRedirect: '/dashboard', failureRedirect: '/login' }));
+app.get('/auth/microsoft/redirect', async(req,res) => {
+  try {
+    console.log(1)
+    const check = await passport.authenticate('microsoft', { successRedirect: '/dashboard', failureRedirect: '/login' });
+    console.log(2);
+    console.log(check);
+  } catch (error) {
+    console.error(error);
+    res.status(500);
+  }
+});
 
 //Define the Login Route
 app.get("/login", (req, res) => {
