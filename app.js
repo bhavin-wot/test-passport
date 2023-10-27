@@ -117,7 +117,7 @@ app.get('/auth/google/callback',
 
 
 // Microsoft Routes
-app.get('/auth/microsoft', passport.authenticate('microsoft'));
+app.get('/auth/microsoft', passport.authenticate('microsoft',{ session : false }));
 // app.get('/auth/microsoft/redirect', passport.authenticate('microsoft', { session: false, failureRedirect: `/login` }), (req, res) => {
 //   res.redirect("/dashboard");
 
