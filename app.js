@@ -122,18 +122,7 @@ app.get('/auth/microsoft',passport.authenticate('microsoft', { session : false }
 //   res.redirect("/dashboard");
 
 // });
-app.get('/auth/microsoft/redirect', async(req,res) => {
-  try {
-    console.log(1)
-    const check = await passport.authenticate('microsoft', { successRedirect: '/dashboard', failureRedirect: '/login' });
-    console.log(2);
-    console.log(check);
-    return check;
-  } catch (error) {
-    console.error(error);
-    res.status(500);
-  }
-});
+app.get('/auth/microsoft/redirect', passport.authenticate('microsoft', { successRedirect: '/dashboard', failureRedirect: '/login' }));
 
 //Define the Login Route
 app.get("/login", (req, res) => {
@@ -143,12 +132,14 @@ app.get("/login", (req, res) => {
 
 //Use the req.isAuthenticated() function to check if user is Authenticated
 checkAuthenticated = (req, res, next) => {
+  console.log("1 middle")
   if (req.isAuthenticated()) { return next() }
   res.redirect("/login")
 }
 
 //Define the Protected Route, by using the "checkAuthenticated" function defined above as middleware
 app.get("/dashboard", checkAuthenticated, (req, res) => {
+  console.log("dashboard")
   res.render("dashboard.ejs", {name: req.user.displayName})
 })
 
