@@ -37,7 +37,7 @@ const GOOGLE_CLIENT_SECRET = process.env.CLIENT_SECRET
 passport.use(new GoogleStrategy({
     clientID:     GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://192.168.1.48:5000/auth/google/callback",
+    callbackURL: "https://test-passport.onrender.com/auth/google/callback",
     passReqToCallback   : true
   }, authUser = (request, accessToken, refreshToken, profile, done) => {
     return done(null, profile);
@@ -46,7 +46,7 @@ passport.use(new GoogleStrategy({
 
 
 passport.use(new MicrosoftStrategy({  
-callbackURL: `https://192.168.1.48:5000/auth/microsoft/redirect`,  
+callbackURL: `https://test-passport.onrender.com/auth/microsoft/redirect`,  
 clientID: process.env.MICROSOFT_CLIENT_ID,  
 clientSecret: process.env.MICROSOFT_CLIENT_SECRET_VALUE,  
 scope: ['openid', 'profile', 'email']  
