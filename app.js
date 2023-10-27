@@ -127,7 +127,15 @@ app.get('/auth/microsoft',passport.authenticate('microsoft', { session : false }
 //   res.redirect("/dashboard");
 
 // });
-app.get('/auth/microsoft/redirect', passport.authenticate('microsoft', { successRedirect: '/dashboard', failureRedirect: '/login' }));
+app.get(
+  '/auth/microsoft/redirect', 
+  passport.authenticate('microsoft', { successRedirect: '/dashboard', failureMessage: true, failureRedirect: '/login' },
+  (err, user)=>{
+    console.log("executed");
+    console.log(err);
+    console.log(user);
+  })
+  );
 
 //Define the Login Route
 app.get("/login", (req, res) => {
